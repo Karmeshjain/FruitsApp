@@ -12,9 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 public class Fruitadaptor extends RecyclerView.Adapter<Fruitadaptor.Fruitviewholder> {
 
     private String[] data;
-    public Fruitadaptor(String[] data)
+    private String[] data1;
+
+    public Fruitadaptor(String[] data,String[] data1)
     {
         this.data =data;
+        this.data1=data1;
     }
 
 
@@ -31,6 +34,8 @@ public class Fruitadaptor extends RecyclerView.Adapter<Fruitadaptor.Fruitviewhol
     public void onBindViewHolder(@NonNull Fruitviewholder holder, int position) {
      String title =data[position];
      holder.txt1.setText(title);
+        String title1 =data1[position];
+        holder.txt2.setText(title1);
     }
 
 

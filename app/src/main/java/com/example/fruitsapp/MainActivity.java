@@ -41,7 +41,11 @@ public class MainActivity extends AppCompatActivity {
         fruitlist.setLayoutManager(new LinearLayoutManager(this));
         String[] Fruits = {"Apple" , "Banana", "Pear" , "Kiwi" , "Strawberry", "Mango","Papaya","Apple" ,
                 "Banana", "Pear" , "Kiwi" , "Strawberry", "Mango","Papaya"};
-        fruitlist.setAdapter(new Fruitadaptor(Fruits));
+        String[] Family = {"A" , "B", "C" , "D" , "E", "F","G","H" ,
+                "I", "J" , "K" , "L", "M","N"};
+
+
+        fruitlist.setAdapter(new Fruitadaptor(Fruits,Family));
 
         DividerItemDecoration dividerItemDecoration= new DividerItemDecoration(this,DividerItemDecoration.VERTICAL);
         dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.divider));
