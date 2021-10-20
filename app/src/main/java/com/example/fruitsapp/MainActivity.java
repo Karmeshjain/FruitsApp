@@ -26,6 +26,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,45 +40,47 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         RecyclerView fruitlist = (RecyclerView) findViewById(R.id.fruitlist);
         fruitlist.setLayoutManager(new LinearLayoutManager(this));
-        String[] Fruits = {"Apple" , "Banana", "Pear" , "Kiwi" , "Strawberry", "Mango","Papaya","Apple" ,
-                "Banana", "Pear" , "Kiwi" , "Strawberry", "Mango","Papaya"};
-        String[] Family = {"A" , "B", "C" , "D" , "E", "F","G","H" ,
-                "I", "J" , "K" , "L", "M","N"};
 
-
-        fruitlist.setAdapter(new Fruitadaptor(Fruits,Family));
-
-        DividerItemDecoration dividerItemDecoration= new DividerItemDecoration(this,DividerItemDecoration.VERTICAL);
-        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.divider));
-        fruitlist.addItemDecoration(dividerItemDecoration);
-
-        fetchData();
-        putData();
-
-    }
-
-    private void fetchData() {
         StringRequest stringRequest=new StringRequest(URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.d("RESPONSE",response);
-              //  Toast.makeText(MainActivity.this, "Working", Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(MainActivity.this, "Working", Toast.LENGTH_SHORT).show();
                 GsonBuilder gsonBuilder=new GsonBuilder();
                 Gson gson=gsonBuilder.create();
                 Fruit[] fruitsArray=gson.fromJson(response,Fruit[].class);
-
-
+                 ArrayList<String> fruitListName=new ArrayList<>();
+                 ArrayList<String> fruitListFamily=new ArrayList<>();
+                for(int i=0;i<fruitsArray.length;i++)
+                {
+                    fruitListName.add(fruitsArray[i].getName());
+                    fruitListFamily.add(fruitsArray[i].getFamily());
+                }
+                fruitlist.setAdapter(new Fruitadaptor(fruitListName,fruitListFamily));
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-            //    Toast.makeText(MainActivity.this, "Try Again Please", Toast.LENGTH_SHORT).show();
+                //    Toast.makeText(MainActivity.this, "Try Again Please", Toast.LENGTH_SHORT).show();
             }
         });
 
 
         RequestQueue queue= Volley.newRequestQueue(this);
         queue.add(stringRequest);
+        putData();
+
+
+
+        DividerItemDecoration dividerItemDecoration= new DividerItemDecoration(this,DividerItemDecoration.VERTICAL);
+        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.divider));
+        fruitlist.addItemDecoration(dividerItemDecoration);
+
+
+    }
+
+    private void fetchData() {
+
     }
     private void putData()
     {

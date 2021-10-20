@@ -9,14 +9,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 public class Fruitadaptor extends RecyclerView.Adapter<Fruitadaptor.Fruitviewholder> {
 
-    private String[] data;
-    private String[] data1;
+    public ArrayList<String> data=new ArrayList<>();
+    public ArrayList<String> data1=new ArrayList<>();
 
-    public Fruitadaptor(String[] data,String[] data1)
+    public Fruitadaptor( ArrayList<String>data, ArrayList<String> data1)
     {
         this.data =data;
+        this.data1=data1;
         this.data1=data1;
     }
 
@@ -32,9 +35,9 @@ public class Fruitadaptor extends RecyclerView.Adapter<Fruitadaptor.Fruitviewhol
 
     @Override
     public void onBindViewHolder(@NonNull Fruitviewholder holder, int position) {
-     String title =data[position];
+     String title = data.get(position);
      holder.txt1.setText(title);
-        String title1 =data1[position];
+        String title1 = data1.get(position);
         holder.txt2.setText(title1);
     }
 
@@ -42,7 +45,7 @@ public class Fruitadaptor extends RecyclerView.Adapter<Fruitadaptor.Fruitviewhol
 
     @Override
     public int getItemCount() {
-        return data.length;
+        return data.size();
     }
 
     public  class Fruitviewholder extends RecyclerView.ViewHolder{
