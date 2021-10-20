@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -19,6 +20,8 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -38,6 +41,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        fetchDataAndAttachIt();
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               
+            }
+        });
+    }
+
+    private void fetchDataAndAttachIt() {
         RecyclerView fruitlist = (RecyclerView) findViewById(R.id.fruitlist);
         fruitlist.setLayoutManager(new LinearLayoutManager(this));
 
@@ -49,8 +63,8 @@ public class MainActivity extends AppCompatActivity {
                 GsonBuilder gsonBuilder=new GsonBuilder();
                 Gson gson=gsonBuilder.create();
                 Fruit[] fruitsArray=gson.fromJson(response,Fruit[].class);
-                 ArrayList<String> fruitListName=new ArrayList<>();
-                 ArrayList<String> fruitListFamily=new ArrayList<>();
+                ArrayList<String> fruitListName=new ArrayList<>();
+                ArrayList<String> fruitListFamily=new ArrayList<>();
                 for(int i=0;i<fruitsArray.length;i++)
                 {
                     fruitListName.add(fruitsArray[i].getName());
@@ -75,11 +89,6 @@ public class MainActivity extends AppCompatActivity {
         DividerItemDecoration dividerItemDecoration= new DividerItemDecoration(this,DividerItemDecoration.VERTICAL);
         dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.divider));
         fruitlist.addItemDecoration(dividerItemDecoration);
-
-
-    }
-
-    private void fetchData() {
 
     }
     private void putData()
