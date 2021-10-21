@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -33,8 +34,6 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-
-
     private static final String URL="https://fruityvice.com/api/fruit/all";
 
     @Override
@@ -46,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "Clicking", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this, AddActivity.class));
             }
         });
     }
@@ -58,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         StringRequest stringRequest=new StringRequest(URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d("RESPONSE",response);
+             //   Log.d("RESPONSE",response);
                 //  Toast.makeText(MainActivity.this, "Working", Toast.LENGTH_SHORT).show();
                 GsonBuilder gsonBuilder=new GsonBuilder();
                 Gson gson=gsonBuilder.create();
